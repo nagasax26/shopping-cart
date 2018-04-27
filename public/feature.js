@@ -17,6 +17,7 @@ $('.cart-list').on('click', '.btn-remove',function(){
                 $(this).closest('div').empty();
                 $(this).closest('div').remove();
             }
+            saveToLocalStorage();
             updateCart();
             break;
         }
