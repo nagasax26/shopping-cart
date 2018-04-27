@@ -2,6 +2,27 @@
 var cart = [];
 var totalPrice = 0;
 
+//local storage
+var STORAGE_ID = 'shopping-cart';
+
+var saveToLocalStorage = function(){
+  localStorage.setItem(STORAGE_ID, JSON.stringify(cart));
+};
+
+var getFromLocalStorage = function(){
+  return JSON.parse(localStorage.getItem(STORAGE_ID) || '[]');
+};
+
+//loading data from local-storage to cart array
+$(document).ready(function(){
+ var cartInLocalStorage = getFromLocalStorage();
+ for(var i in cartInLocalStorage){
+     cart.push(cartInLocalStorage[i]);
+     totalPrice += cartInLocalStorage[i].price;
+ }
+ updateCart();
+});
+
 var updateCart = function () {
   // TODO: Write this function. In this function we render the page.
   // Meaning we make sure that all our cart items are displayed in the browser.
@@ -30,6 +51,9 @@ var addItem = function (item) {
   // It simply is for adding an item to the cart array, no HTML involved - honest ;-)
   cart.push(item);
 
+  //storing to local storage when we insert new item
+  saveToLocalStorage();
+
   //when we add new item we add it to total price
   totalPrice+= item.price;
 }
@@ -38,7 +62,10 @@ var clearCart = function () {
   // TODO: Write a function that clears the cart ;-)
   cart = [];
   totalPrice = 0;
-  
+
+  //saving to local-storage
+  saveToLocalStorage();
+
   updateCart();
 }
 
@@ -60,6 +87,7 @@ $('#item-container').on('click', '.add-to-cart', function () {
       cart[i].count++;
       cart[i].price += price;
       totalPrice += price;
+      saveToLocalStorage();
       break;
     }
   }
@@ -78,3 +106,5 @@ $('.clear-cart').on('click', function () {
 
 // update the cart as soon as the page loads!
 updateCart();
+
+
