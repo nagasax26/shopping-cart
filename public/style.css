@@ -103,3 +103,14 @@ body {
 .clear-cart {
   width: 100%;
 }
+
+
+/* btn-remove style */
+.btn-remove{
+  font-size: 14px;
+  margin-right: 3px;
+}
+
+.btn-remove:hover{
+  color:red;
+}

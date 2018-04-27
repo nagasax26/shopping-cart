@@ -47,13 +47,28 @@ $('.view-cart').on('click', function () {
   $('.shopping-cart').toggleClass('show');
 });
 
-$('.add-to-cart').on('click', function () {
+$('#item-container').on('click', '.add-to-cart', function () {
   // TODO: get the "item" object from the page
   var name = $(this).closest('div.card.item').data().name;
   var price = $(this).closest('div.card.item').data().price;
-  
-  var item = {name: name, price: price};
-  addItem(item);
+  var count = 1;
+  var wasfound = false;
+  //check if name allrady exsit in the cart
+  for(var i in cart){
+    if(cart[i].name === name){
+      wasfound = true;
+      cart[i].count++;
+      cart[i].price += price;
+      totalPrice += price;
+      break;
+    }
+  }
+
+  if(!wasfound){
+    var item = {name: name, price: price, count:count};
+      addItem(item);
+  }
+
   updateCart();
 });
 

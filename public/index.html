@@ -33,6 +33,12 @@
               <i class="fa fa-shopping-cart"></i>
             </a>
           </li>
+
+          <li>
+            <a href="#" data-toggle="modal" data-target="#itemModal" role="button">Add Item
+              <i class="fa fa-plus"></i>
+            </a>
+          </li>
         </ul>
       </div>
       <!-- /.navbar-collapse -->
@@ -44,7 +50,7 @@
     <h1>SHOPPING CART</h1>
   </div>
 
-  <div class="container">
+  <div id="item-container" class="container">
     <div class="shopping-cart">
       <p class="cart-title">Items in Cart</p>
       <div class="cart-list"></div>
@@ -156,15 +162,79 @@
       </div>
     </div>
   </div>
+
+  <!-- modal's -->
+  <div class="modal" id="itemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalVerticalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalVerticalLabel">ADD ITEM</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form id="form-item">
+                <div class="form-group row">
+                  <label for="form-name" class="col-sm-2 col-form-label">Item Name:</label>
+                  <div class="col-sm-10">
+                    <input type="text" pattern="[a-z]+" title="enter name in small later" required class="form-control" id="form-name">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="form-price" class="col-sm-2 col-form-label">Price:</label>
+                  <div class="col-sm-10">
+                    <input type="text" pattern="[0-9]+" title="please enter number" required class="form-control" id="form-price">
+                  </div>
+                </div>
+                <div class="form-group row">
+                    <label for="form-img" class="col-sm-2 col-form-label">Img:</label>
+                    <div class="col-sm-10">
+                      <input type="file" required class="form-control-file" id="form-img"  accept=".jpg, .jpeg, .png">
+                    </div>
+                  </div>
+                  <input id="btn-item" type="submit" class="btn btn-primary" value="ADD">
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- scripts -->
   <script type="text/javascript" src="jquery/dist/jquery.min.js"></script>
   <script type="text/javascript" src="bootstrap/dist/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="handlebars/dist/handlebars.min.js"></script>
+  <script src="helper.js"></script>
   <script id="cart-template" type="text/x-handlebars-template">
     {{#each carts}}
-    <div>{{name}} - ${{price}}</div>
+    <div><i class="btn-remove fa fa-times"></i><span>{{name}}</span>{{#ifCond count 1}}({{count}}) {{/ifCond}} - <span>${{price}}</span></div>
     {{/each}}
   </script>
+  <script id="add-item-template" type="text/x-handlebars-template">
+    <div class="col-md-4">
+        <div class="card-container">
+          <div class="card item" item data-name="{{name}}" data-price="{{price}}">
+            <div class="pricebox">
+              <p class="price"> ${{price}} </p>
+            </div>
+            <div class="buybox">
+              <p class="add-to-cart"> ADD TO CART </p>
+            </div>
+            <div class="card-inner">
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  </script>
   <script type="text/javascript" src="script.js"></script>
+  <script src="feature.js"></script>
+  <script src="add-item.js"></script>
 </body>
 
 </html>
